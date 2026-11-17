@@ -6,3 +6,4 @@ desktop.ini
 db.sqlite3
 datasets/raw/*.csv
 datasets/processed/
+.vscode/
