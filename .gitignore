@@ -4,4 +4,5 @@ __pycache__/
 .env
 desktop.ini
 db.sqlite3
-datasets/
+datasets/raw/*.csv
+datasets/processed/
