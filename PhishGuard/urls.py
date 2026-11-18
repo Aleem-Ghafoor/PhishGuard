@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import PhishGuard.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', PhishGuard.views.home, name='home'),
 ]
