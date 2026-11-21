@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import PhishGuard.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', PhishGuard.views.home, name='home'),
+    path('', PhishGuard.views.home, name='home'),
+    path('accounts/', include('accounts.urls')),  # Include the accounts app URLs
+    path('dashboard/', PhishGuard.views.dashboard, name='dashboard'),  # Dashboard URL
 ]

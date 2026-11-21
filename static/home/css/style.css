@@ -206,6 +206,14 @@ button {
     gap: 2rem;
 }
 
+.navbar__user {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
 /* Brand */
 .navbar__brand {
     display: flex;
