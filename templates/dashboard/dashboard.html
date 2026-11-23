@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | PhishGuard</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Dashboard CSS -->
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+</head>
+<body>
+
+  <!-- Include Sidebar -->
+  {% include 'dashboard/sidebar.html' %}
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    
+    <!-- Include Header -->
+    {% include 'dashboard/header.html' %}
+
+    <!-- Stats Cards Grid -->
+    <section class="stats-grid" id="stats-container">
+      <!-- Rendered dynamically by dashboard.js -->
+    </section>
+
+    <!-- Charts & Distribution Row -->
+    <section class="middle-grid">
+      <!-- Chart Section -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="title-icon"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div>
+              <h3>URL Scan Overview</h3>
+              <p>Scan activity and results across different days.</p>
+            </div>
+          </div>
+          <select class="filter-select">
+            <option>Last 7 Days</option>
+            <option>Last 30 Days</option>
+          </select>
+        </div>
+        <div class="chart-body">
+          <canvas id="urlScanChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Detection Distribution -->
+      <div class="card distribution-card">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Detection Distribution</h3>
+          </div>
+        </div>
+        <div class="distribution-body" id="distribution-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Scans Table -->
+    <section class="card table-card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="title-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <h3>Recent Scans</h3>
+            <p>Your latest scanned URLs and results.</p>
+          </div>
+        </div>
+        <a href="#" class="view-all">View All &rarr;</a>
+      </div>
+      <div class="table-responsive">
+        <table class="scans-table">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Result</th>
+              <th>Confidence</th>
+              <th>Scanned At</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="recent-scans-body">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dashboard JS -->
+  <script src="{% static 'dashboard/js/dashboard-data.js' %}"></script>
+  <script src="{% static 'dashboard/js/charts.js' %}"></script>
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+</body>
+</html>

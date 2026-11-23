@@ -1,0 +1,486 @@
+{% extends 'base.html' %}
+
+{% block title %}PhishGuard — AI-Based Phishing URL Detection{% endblock %}
+
+{% block content %}
+
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero" id="home">
+    <div class="hero__container">
+
+        <!-- Left column: copy + scanner -->
+        <div class="hero__content">
+            <span class="hero__badge">
+                <span class="hero__badge-dot"></span>
+                AI POWERED CYBERSECURITY
+            </span>
+
+            <h1 class="hero__title">
+                Stay Safe from<br>
+                <span class="hero__title-accent">Phishing Attacks</span>
+            </h1>
+
+            <p class="hero__description">
+                PhishGuard uses advanced AI to detect and analyze suspicious URLs,
+                helping you stay protected from phishing scams and malicious websites.
+            </p>
+
+            <!-- URL Scanner -->
+            <form class="scanner" id="urlScanner" novalidate>
+                <div class="scanner__field">
+                    <svg class="scanner__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M10 13a5 5 0 007.07 0l2.83-2.83a5 5 0 00-7.07-7.07L11 4.93"
+                              stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        <path d="M14 11a5 5 0 00-7.07 0L4.1 13.83a5 5 0 007.07 7.07L13 19.07"
+                              stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                    <input
+                        type="text"
+                        id="urlInput"
+                        class="scanner__input"
+                        placeholder="Enter URL to scan (e.g., https://example.com)"
+                        aria-label="URL to scan"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <button type="submit" class="btn btn--primary scanner__button">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Scan URL
+                    </button>
+                </div>
+                <p class="scanner__message" id="scannerMessage" role="status" aria-live="polite"></p>
+            </form>
+
+            <!-- Hero mini-features -->
+            <ul class="hero__tags">
+                <li class="hero__tag"><span class="hero__tag-check">✓</span> Fast</li>
+                <li class="hero__tag"><span class="hero__tag-check">✓</span> Accurate</li>
+                <li class="hero__tag"><span class="hero__tag-check">✓</span> AI Powered</li>
+                <li class="hero__tag"><span class="hero__tag-check">✓</span> Real-time Analysis</li>
+            </ul>
+        </div>
+
+        <!-- Right column: shield illustration -->
+        <div class="hero__visual" aria-hidden="true">
+            <div class="hero__visual-glow"></div>
+
+            <!-- Central shield -->
+            <div class="shield">
+                <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%"  stop-color="#00e5b0"/>
+                            <stop offset="100%" stop-color="#00b88a"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M100 10 L180 45 v70 c0 55 -38 95 -80 105 C58 210 20 170 20 115 V45 Z"
+                          fill="url(#shieldGrad)" fill-opacity="0.12"
+                          stroke="url(#shieldGrad)" stroke-width="3"/>
+                    <path d="M100 30 L162 57 v58 c0 45 -30 78 -62 88 c-32 -10 -62 -43 -62 -88 V57 Z"
+                          fill="url(#shieldGrad)" fill-opacity="0.18"/>
+                    <path d="M78 108 l16 16 30 -32"
+                          stroke="url(#shieldGrad)" stroke-width="6"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <!-- Orbital ring -->
+            <div class="hero__orbit"></div>
+
+            <!-- Floating label cards -->
+            <div class="float-card float-card--tl">
+                <span class="float-card__icon float-card__icon--teal">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"
+                              stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="float-card__text">Detect<br>Malicious Links</span>
+            </div>
+
+            <div class="float-card float-card--tr">
+                <span class="float-card__icon float-card__icon--blue">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+                              stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="float-card__text">AI<br>Analysis</span>
+            </div>
+
+            <div class="float-card float-card--bl">
+                <span class="float-card__icon float-card__icon--green">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor"
+                              stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="float-card__text">Real-time<br>Scanning</span>
+            </div>
+
+            <div class="float-card float-card--br">
+                <span class="float-card__icon float-card__icon--teal">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="5" y="10" width="14" height="10" rx="2"
+                              stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor"
+                              stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="float-card__text">Keep You<br>Safe</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================
+     FEATURES SECTION
+     ============================================ -->
+<section class="features" id="features">
+    <div class="section-container">
+        <div class="section-head">
+            <span class="section-eyebrow">OUR FEATURES</span>
+            <h2 class="section-title">Why Choose PhishGuard?</h2>
+        </div>
+
+        <div class="features__grid">
+
+            <article class="feature-card">
+                <div class="feature-card__icon feature-card__icon--teal">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M9 4a3 3 0 016 0v1a3 3 0 003 3M9 4a3 3 0 00-3 3M9 4v1a3 3 0 01-3 3M4 9h16M6 9v7a3 3 0 003 3h6a3 3 0 003-3V9"
+                              stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                        <circle cx="9" cy="14" r="1.2" fill="currentColor"/>
+                        <circle cx="15" cy="14" r="1.2" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">AI-Powered Detection</h3>
+                <p class="feature-card__text">
+                    Uses machine learning to identify phishing and malicious URLs with high accuracy.
+                </p>
+                <span class="feature-card__arrow feature-card__arrow--teal" aria-hidden="true">→</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-card__icon feature-card__icon--blue">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor"
+                              stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Real-time Analysis</h3>
+                <p class="feature-card__text">
+                    Get instant results and know if a URL is safe or suspicious in seconds.
+                </p>
+                <span class="feature-card__arrow feature-card__arrow--blue" aria-hidden="true">→</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-card__icon feature-card__icon--purple">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+                              stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.8"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Comprehensive Checks</h3>
+                <p class="feature-card__text">
+                    Analyzes domains, redirects, SSL certificates and more to detect threats.
+                </p>
+                <span class="feature-card__arrow feature-card__arrow--purple" aria-hidden="true">→</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-card__icon feature-card__icon--gold">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"
+                              stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Scan History</h3>
+                <p class="feature-card__text">
+                    Keep track of your previous scans and manage your security records.
+                </p>
+                <span class="feature-card__arrow feature-card__arrow--gold" aria-hidden="true">→</span>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================
+     HOW IT WORKS
+     ============================================ -->
+<section class="how" id="about">
+    <div class="section-container">
+        <div class="section-head">
+            <span class="section-eyebrow">HOW IT WORKS</span>
+            <h2 class="section-title">Get Protected in 3 Simple Steps</h2>
+        </div>
+
+        <div class="how__steps">
+
+            <div class="how__step">
+                <span class="how__number">1</span>
+                <div class="how__card">
+                    <div class="how__icon">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M10 13a5 5 0 007.07 0l2.83-2.83a5 5 0 00-7.07-7.07L11 4.93"
+                                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M14 11a5 5 0 00-7.07 0L4.1 13.83a5 5 0 007.07 7.07L13 19.07"
+                                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="how__title">Enter the URL</h3>
+                        <p class="how__text">Paste the suspicious URL in the input box above.</p>
+                    </div>
+                </div>
+            </div>
+
+            <span class="how__connector" aria-hidden="true">→</span>
+
+            <div class="how__step">
+                <span class="how__number">2</span>
+                <div class="how__card">
+                    <div class="how__icon">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+                            <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="how__title">AI Analysis</h3>
+                        <p class="how__text">Our system scans the URL using advanced AI models.</p>
+                    </div>
+                </div>
+            </div>
+
+            <span class="how__connector" aria-hidden="true">→</span>
+
+            <div class="how__step">
+                <span class="how__number">3</span>
+                <div class="how__card">
+                    <div class="how__icon">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+                                  stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="how__title">Get Results</h3>
+                        <p class="how__text">Receive instant feedback about the safety of the URL.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================
+     STATISTICS SECTION
+     NOTE: Values are UI placeholders only.
+     ============================================ -->
+<section class="stats" aria-label="PhishGuard statistics (placeholder values)">
+    <div class="section-container">
+        <div class="stats__grid">
+
+            <div class="stat">
+                <div class="stat__icon stat__icon--teal">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+                              stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.9"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat__text">
+                    <span class="stat__value">99.8%</span>
+                    <span class="stat__label">Detection Accuracy</span>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat__icon stat__icon--blue">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor"
+                              stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat__text">
+                    <span class="stat__value">&lt; 2s</span>
+                    <span class="stat__label">Average Scan Time</span>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat__icon stat__icon--gold">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M5 6v5c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 11v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"
+                              stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                </div>
+                <div class="stat__text">
+                    <span class="stat__value">10K+</span>
+                    <span class="stat__label">URLs Scanned</span>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat__icon stat__icon--gold">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M3.5 20a5.5 5.5 0 0111 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                        <circle cx="17" cy="9" r="2.4" stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M15 20a4.5 4.5 0 016.5-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat__text">
+                    <span class="stat__value">1K+</span>
+                    <span class="stat__label">Active Users</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================
+     CALL TO ACTION
+     ============================================ -->
+<section class="cta" aria-label="Call to action">
+    <div class="section-container">
+        <div class="cta__inner">
+            <div class="cta__left">
+                <span class="cta__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 3l7 4v5c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+                              stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <div class="cta__copy">
+                    <span class="cta__eyebrow">BEFORE YOU CLICK, SCAN!</span>
+                    <h2 class="cta__title">Protect Yourself from Online Threats</h2>
+                    <p class="cta__text">Smart detection. Safer browsing. Powered by AI.</p>
+                </div>
+            </div>
+            <a href="#home" class="btn btn--primary cta__button" data-scroll-to="urlInput">
+                Start Scanning Now →
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================
+     FAQ SECTION
+     ============================================ -->
+<section class="faq" id="faq">
+    <div class="section-container">
+        <div class="section-head">
+            <span class="section-eyebrow">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq__list">
+
+            <div class="faq-item">
+                <button class="faq-item__question" aria-expanded="false">
+                    <span>What is phishing?</span>
+                    <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__answer">
+                    <p>
+                        Phishing is a type of cyberattack where attackers impersonate trusted
+                        entities to trick users into revealing sensitive information such as
+                        passwords, credit card numbers, or login credentials — often through
+                        deceptive URLs or emails.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-item__question" aria-expanded="false">
+                    <span>How does PhishGuard work?</span>
+                    <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__answer">
+                    <p>
+                        PhishGuard analyzes a URL using an AI model trained on phishing and
+                        legitimate URL patterns. When you submit a link, the system evaluates
+                        it and returns a classification with a short explanation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-item__question" aria-expanded="false">
+                    <span>Can PhishGuard detect suspicious URLs?</span>
+                    <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__answer">
+                    <p>
+                        Yes — PhishGuard is built specifically to identify suspicious or
+                        phishing-style URLs. As with any detection system, results should be
+                        treated as guidance and combined with safe browsing practices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-item__question" aria-expanded="false">
+                    <span>Is my scanned URL stored?</span>
+                    <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__answer">
+                    <p>
+                        <em>Provisional answer:</em> Data storage policies will be finalized
+                        once the backend and scan-history features are fully implemented. Until
+                        then, please assume submitted URLs are used only for the current
+                        analysis.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-item__question" aria-expanded="false">
+                    <span>Is PhishGuard free to use?</span>
+                    <span class="faq-item__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-item__answer">
+                    <p>
+                        <em>Provisional answer:</em> Pricing and usage limits are not yet
+                        finalized. The project is currently in development as an academic
+                        system, and access terms will be clarified before public release.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+{# All homepage interactions live in static/js/main.js — nothing extra needed here. #}
+{% endblock %}

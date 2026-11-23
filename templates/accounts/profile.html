@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | PhishGuard</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+</head>
+<body>
+
+  <!-- Reusing Sidebar from Dashboard -->
+  {% include 'dashboard/sidebar.html' %}
+
+  <main class="main-content">
+    
+    <!-- Top Breadcrumb Header (Image specific) -->
+    <header class="top-nav">
+      <div class="breadcrumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+        <span class="separator">&rsaquo;</span>
+        <span class="current">Profile</span>
+      </div>
+      
+      <div class="nav-right">
+        <button class="icon-btn notify-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge-dot"></span>
+        </button>
+        <div class="user-avatar-sm">AA</div>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="page-title-area">
+      <div class="title-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <h1>Profile</h1>
+        <p>Manage your account and personal information.</p>
+      </div>
+    </div>
+
+    <!-- Django Messages (Success/Error) -->
+    {% if messages %}
+      <div class="messages-container">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Profile Header Card -->
+    <div class="profile-header-card">
+      <div class="profile-info-left">
+        <div class="profile-avatar">
+          <!-- Dynamically show user initials -->
+          {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+        </div>
+        <div class="profile-details">
+          <!-- Dynamically show user name & email -->
+          <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+          <p>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            {{ user.email }}
+          </p>
+          <span class="status-badge">
+            <span class="dot"></span> Active Account
+          </span>
+        </div>
+      </div>
+      <!-- Decorative Illustration -->
+      <div class="profile-illustration">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" stroke="rgba(14, 165, 233, 0.1)" stroke-width="2" stroke-dasharray="4 4"/>
+          <path d="M100 30L50 60V110C50 150 100 180 100 180C100 180 150 150 150 110V60L100 30Z" fill="rgba(16, 185, 129, 0.05)" stroke="#10b981" stroke-width="2"/>
+          <rect x="75" y="95" width="50" height="40" rx="4" fill="#10b981"/>
+          <path d="M85 95V80C85 70 115 70 115 80V95" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="100" cy="115" r="5" fill="#070f19"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Main Grid: Settings Menu & Form -->
+    <div class="profile-layout-grid">
+      
+      <!-- Left: Account Settings Menu -->
+      <div class="settings-menu-card">
+        <h3>Account Settings</h3>
+        <nav class="settings-nav">
+          <a href="#personal-info" class="settings-link active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Personal Information
+          </a>
+          <a href="#change-password" class="settings-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Change Password
+          </a>
+          <div class="settings-divider"></div>
+          <form method="POST" action="{% url 'logout' %}" class="settings-link logout-link">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Logout
+            </button>
+          </form>
+        </nav>
+      </div>
+
+      <!-- Right: Forms Area -->
+      <div class="forms-area">
+        
+        <!-- Personal Information Section -->
+        <div class="form-card" id="personal-info">
+          <div class="card-header">
+            <div class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121  0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <div>
+                <h3>Personal Information</h3>
+                <p>View and update your profile details.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Update Profile Form -->
+          <form method="POST" action="{% url 'profile' %}" id="profileForm">
+            {% csrf_token %}
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" name="first_name" value="{{ user.first_name }}" disabled>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" name="last_name" value="{{ user.last_name }}" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+                <input type="email" name="email" value="{{ user.email }}" disabled>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <div class="password-action-row">
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <input type="password" value="••••••••••••" disabled>
+                </div>
+                <button type="button" class="btn-outline" onclick="scrollToPassword()">Change Password</button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="editBtn">Edit Profile</button>
+              <button type="submit" class="btn-primary" id="saveBtn" style="display: none;">Save Changes</button>
+              <button type="button" class="btn-outline" id="cancelBtn" style="display: none;">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Change Password Section -->
+        <div class="form-card" id="change-password">
+          <div class="card-header">
+            <div class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div>
+                <h3>Change Password</h3>
+                <p>Update your password securely.</p>
+              </div>
+            </div>
+          </div>
+
+          <form method="POST" action="{% url 'change_password' %}" id="passwordForm">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Current Password</label>
+              <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" name="old_password" required >
+              </div>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" name="new_password1" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" name="new_password2" required>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Update Password</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'accounts/js/profile.js' %}"></script>
+</body>
+</html> 
