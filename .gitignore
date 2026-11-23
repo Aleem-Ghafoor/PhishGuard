@@ -5,4 +5,7 @@ __pycache__/
 desktop.ini
 db.sqlite3
 datasets/raw/*.csv
-datasets/processed/
+datasets/processed/*
+!datasets/processed/url_features.csv
+!datasets/processed/url_features_v2.csv
+!datasets/processed/url_features_v3.csv
