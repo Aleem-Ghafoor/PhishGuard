@@ -1,5 +1,9 @@
 # 🛡️ PhishGuard — AI-Based Phishing URL Detection
 
+[![Latest Release](https://img.shields.io/github/v/release/Aleem-Ghafoor/PhishGuard?display_name=tag&style=for-the-badge)](https://github.com/Aleem-Ghafoor/PhishGuard/releases)
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)
+![Django](https://img.shields.io/badge/Django-Web%20Framework-green?style=for-the-badge)
+
 **First official release: [v1.0.0](https://github.com/Aleem-Ghafoor/PhishGuard/releases/tag/v1.0.0)**
 
 PhishGuard is a Django-based web application that uses machine learning to classify URLs as **Legitimate** or **Phishing**. It combines URL feature extraction and a trained Random Forest model with a web interface for scanning URLs and viewing scan history.
@@ -17,6 +21,32 @@ PhishGuard is a Django-based web application that uses machine learning to class
 - A standalone ML prediction interface.
 
 This README describes the current `main` branch. Features and limitations may change in later releases.
+
+
+## 🏗️ Application Architecture
+
+The current application follows this request flow for URL scanning:
+
+```mermaid
+flowchart TD
+    A[User / Browser] --> B[Django Web Application]
+    B --> C[Scanner Views and URL Validation]
+    C --> D[Scanner Service]
+    D --> E[ML Predictor]
+    E --> F[URL Feature Extractor]
+    F --> G[Trained Random Forest Model]
+    G --> H[Prediction and Phishing Probability]
+    H --> I[JSON Response to Browser]
+    C --> J[(SQLite Database)]
+    J --- K[Authenticated Users' Scan History]
+```
+
+**Main components:**
+- `accounts/`: user authentication and profile functionality.
+- `scanner/`: scan endpoints, URL validation, prediction service, and scan history.
+- `ml_engine/`: URL feature extraction and trained-model prediction.
+- `dashboard/`: dashboard view and interface.
+- `PhishGuard/`: Django project configuration and root routes.
 
 ## 🧠 Machine Learning
 
