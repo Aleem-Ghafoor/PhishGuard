@@ -1,323 +1,186 @@
-# 🛡️ PhishGuard – AI-Based Phishing URL Detection
+# 🛡️ PhishGuard — AI-Based Phishing URL Detection
 
-PhishGuard is an AI/ML-based web application designed to detect potentially malicious and phishing URLs. It analyzes URL characteristics and uses Machine Learning models to classify URLs as **Legitimate** or **Phishing**.
+**First official release: [v1.0.0](https://github.com/Aleem-Ghafoor/PhishGuard/releases/tag/v1.0.0)**
 
-The goal is to help users identify suspicious URLs and reduce the risk of phishing attacks.
+PhishGuard is a Django-based web application that uses machine learning to classify URLs as **Legitimate** or **Phishing**. It combines URL feature extraction and a trained Random Forest model with a web interface for scanning URLs and viewing scan history.
 
-## 🎯 Problem Statement
+> **Note:** A model prediction is an automated risk estimate, not a guarantee that a URL is safe or malicious. Treat suspicious links carefully even when a scan reports them as legitimate.
 
-Phishing attacks are a common cybersecurity threat. Attackers create fake websites and malicious URLs to steal sensitive information such as passwords, financial details, and personal data.
+## ✨ Features in the current application
 
-PhishGuard aims to address this problem by using Machine Learning techniques to analyze URL features and predict whether a URL is legitimate or potentially malicious.
+- User registration, login, logout, and profile functionality.
+- URL scanning through the web application.
+- Machine-learning-based URL classification.
+- Phishing probability displayed with the prediction.
+- Scan history for authenticated users.
+- Separate Django applications for accounts, dashboard, and scanner.
+- A standalone ML prediction interface.
 
-## ✨ Key Features
+This README describes the current `main` branch. Features and limitations may change in later releases.
 
-- URL-based phishing detection.
-- Machine Learning-based classification.
-- URL feature extraction and analysis.
-- Data preprocessing and exploratory data analysis.
-- Training and comparison of multiple ML models.
-- Model evaluation using classification metrics.
-- Threshold analysis for phishing detection.
-- Random Forest-based final prediction model.
-- Prediction interface for URL classification.
-- Django-based web application and ML integration (in progress).
+## 🧠 Machine Learning
 
-## 📊 Dataset
+The current prediction pipeline uses a trained **Random Forest** classifier.
 
-The project uses the **PhiUSIIL Phishing URL Dataset**, containing:
+The ML engine is organized in `ml_engine/`:
 
-- **Total Records:** 235,795
-- **Total Features:** 56
-- **Input:** URL-related features.
-- **Output:** URL classification.
-
-Some dataset features include:
-
-- URLLength
-- DomainLength
-- IsDomainIP
-- TLD
-- URLSimilarityIndex
-- CharContinuationRate
-- TLDLegitimateProb
-- URLCharProb
-
-**Dataset Source:** [UCI Machine Learning Repository – PhiUSIIL Phishing URL Dataset](https://archive.ics.uci.edu/dataset/967/phiusil%2Bphishing%2Burl%2Bdataset)
-
-> Note: Dataset files are excluded from this GitHub repository to keep it lightweight. Download the original dataset from the source link above.
-
-## ⚙️ Project Workflow
-
-1. Problem Definition
-2. Dataset Collection
-3. Data Preprocessing
-   - Handling missing values
-   - Removing duplicates
-   - Encoding categorical variables
-   - Feature preparation and scaling where required
-4. Exploratory Data Analysis (EDA)
-5. Dataset Splitting
-6. Feature Extraction
-7. Model Training
-8. Model Evaluation
-9. Model Comparison
-10. Threshold Analysis and Tuning
-11. Final Model Selection
-12. Prediction Interface Development
-13. Django Web Application Integration
-
-## 🤖 Machine Learning Development
-
-Multiple Machine Learning algorithms were implemented and evaluated to identify a suitable model for phishing URL classification.
-
-### Models Implemented
-
-| Model | Status |
+| Component | Responsibility |
 |---|---|
-| Decision Tree | Implemented and evaluated |
-| K-Nearest Neighbors (KNN) | Implemented and evaluated |
-| Random Forest | Implemented and evaluated |
-| XGBoost | Implemented and evaluated |
+| `feature_extractor.py` | Extracts numerical features from a URL |
+| `predictor.py` | Loads the trained model and predicts a URL class |
+| `train.py` | Model training workflow |
+| `evaluation.py` | Model evaluation utilities |
+| `model/` | Trained model artifact |
 
-### Model Evaluation
-
-The models were evaluated using the following performance metrics:
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Average Precision
-- Confusion Matrix
-- Classification Report
-
-Additional experimentation included:
-
-- Model performance comparison.
-- Precision-Recall curve analysis.
-- Classification threshold analysis.
-- Random Forest feature importance analysis.
-- Random Forest hyperparameter tuning.
-
-### Final Model Selection
-
-**Selected Model: Random Forest Classifier**
-
-Random Forest was selected as the final model following the model experimentation and evaluation process.
-
-The trained model is saved as:
-
-`random_forest.pkl`
-
-The prediction interface uses the trained model to classify URLs and return:
-
-- Predicted class (Phishing or Legitimate).
-- Phishing probability score.
-- Classification threshold.
-
-The classification threshold is configurable through the prediction implementation.
-
-## 🧠 ML Engine Components
-
-The Machine Learning implementation is organized inside the `ml_engine/` directory.
-
-| File / Directory | Purpose |
-|---|---|
-| `train.py` | Model training and saving |
-| `feature_extractor.py` | URL feature extraction |
-| `predictor.py` | URL prediction using the trained model |
-| `evaluation.py` | Model evaluation |
-| `model/` | Stores the trained Random Forest model |
-| `notebooks/` | ML experimentation and analysis |
-| `results/` | Exported model evaluation results |
-
-### Prediction Interface
-
-The ML prediction module provides a function:
+The prediction interface can be called from Python:
 
 ```python
 from ml_engine.predictor import predict_url
 
 result = predict_url("https://example.com")
-
 print(result)
 ```
 
-The function returns the predicted URL classification along with its phishing probability and the applied threshold.
+The result includes the predicted class, phishing probability, and configured classification threshold.
 
-> Note: The prediction probability is a model-generated score, not a guarantee that a URL is malicious or safe.
+## 📊 Dataset
 
-## 🛠️ Technologies Used
+The data engineering documentation for this project describes the **Phishing Site URLs** dataset, contributed by `taruntiwarihp`, with the original file `phishing_site_urls.csv`.
+
+The documented data preparation process includes:
+- Cleaning missing, empty, duplicate, and conflicting URL records.
+- Exploratory data analysis.
+- Extracting six numerical URL features.
+- Encoding labels as `good = 0` and `bad = 1`.
+- Creating an 80:20 stratified train-test split.
+
+For the detailed dataset statistics, feature definitions, and preprocessing workflow, see **[DATASET_DOCUMENTATION.md](DATASET_DOCUMENTATION.md)**.
+
+Dataset files are not included in the repository. The trained model is stored using **Git LFS**.
+
+## 🛠️ Technology Stack
 
 | Technology | Purpose |
 |---|---|
 | Python | Main programming language |
-| Pandas | Data manipulation |
-| NumPy | Numerical operations |
-| Matplotlib | Data visualization |
-| Seaborn | Statistical visualization |
-| Scikit-learn | Machine Learning |
-| XGBoost | Gradient boosting model |
+| Django | Web application and backend |
+| Scikit-learn | Machine learning |
+| Pandas and NumPy | Data processing |
 | Joblib | Model serialization |
-| Google Colab | Model experimentation |
-| Jupyter Notebook | ML development and analysis |
-| Django | Backend web application |
-| HTML/CSS | Frontend development |
-| Git & GitHub | Version control |
-| Git LFS | Large trained model storage |
+| XGBoost | Model experimentation |
+| HTML, CSS, JavaScript | Frontend |
+| SQLite | Current development database configuration |
+| Git and GitHub | Version control and collaboration |
+| Git LFS | Large model artifact storage |
 
 ## 📁 Project Structure
 
 ```text
 PhishGuard/
-│
-├── datasets/
-│   ├── raw/
-│   │   └── processed/
-│   │       ├── train_features.csv
-│   │       └── test_features.csv
-│   │
-│   └── processed/
-│
-├── docs/
-│
-├── ml_engine/
-│   ├── model/
-│   │   └── random_forest.pkl
-│   │
-│   ├── notebooks/
-│   │   └── PhishGuard_ML_Experiments.ipynb
-│   │
-│   ├── results/
-│   │   ├── PhishGuard_Model_Comparison.csv
-│   │   ├── PhishGuard_Feature_Importance.csv
-│   │   └── PhishGuard_RF_Best_Parameters.csv
-│   │
-│   ├── train.py
-│   ├── predictor.py
-│   ├── feature_extractor.py
-│   └── evaluation.py
-│
-├── PhishGuard/
-│   └── Django application
-│
-├── scanner/
-│
+├── PhishGuard/       # Django project configuration and root views
+├── accounts/         # User authentication and profile functionality
+├── dashboard/        # Dashboard application
+├── scanner/          # URL scanning, prediction service, and scan history
+├── ml_engine/        # Feature extraction, training, prediction, and model
+├── datasets/         # Local dataset and processed data
+├── docs/             # Project documentation
+├── static/           # CSS, JavaScript, and static assets
+├── templates/        # Django HTML templates
+├── manage.py
 ├── requirements.txt
-├── .gitignore
-├── .gitattributes
+├── DATASET_DOCUMENTATION.md
 └── README.md
 ```
 
-*Dataset files are maintained locally and excluded from Git tracking. The trained Random Forest model is managed using Git Large File Storage (Git LFS).*
+Dataset files are maintained locally and excluded from Git tracking. The trained model is managed through Git LFS.
 
-## 🚀 Installation & Setup
+## 🚀 Setup and Run Locally
 
-### 1. Clone Repository
+### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/Aleem-Ghafoor/PhishGuard.git
 cd PhishGuard
 ```
 
-### 2. Install Git LFS
+### 2. Install and pull Git LFS files
 
-Git LFS is used to manage the large trained ML model.
+Git LFS is required to retrieve the trained model artifact.
 
 ```bash
 git lfs install
 git lfs pull
 ```
 
-### 3. Create Virtual Environment
+### 3. Create and activate a virtual environment
 
-```bash
+**Windows (PowerShell):**
+
+```powershell
 python -m venv venv
+.\venv\Scripts\Activate.ps1
 ```
 
-### 4. Activate Environment (Windows)
+**Windows (Command Prompt):**
 
-```bash
+```bat
+python -m venv venv
 venv\Scripts\activate
 ```
 
-### 5. Install Dependencies
+**Linux / macOS:**
 
 ```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 6. Run ML Prediction
+### 5. Apply database migrations
 
-After installing the dependencies and obtaining the trained model:
-
-```python
-from ml_engine.predictor import predict_url
-
-result = predict_url("https://example.com")
-print(result)
+```bash
+python manage.py migrate
 ```
 
-### 7. Run Django Application
-
-The Django application and ML integration are being developed.
-
-Once the backend implementation and configuration are complete, the application can be started using:
+### 6. Start the development server
 
 ```bash
 python manage.py runserver
 ```
 
-*The Django server command must be executed from the directory containing the configured `manage.py` file.*
+Open **http://127.0.0.1:8000/** in your browser.
 
-## 👥 Team Members
+The repository currently uses SQLite and Django's development server configuration. This setup guide is for local development; production deployment configuration is outside the scope of this first release.
 
-| Member | Responsibilities |
+## 👥 Team Collaboration
+
+The project is developed collaboratively using Git and GitHub. Work is organized in feature branches and integrated through pull requests.
+
+| Work area | Responsibilities |
 |---|---|
-| Member 1 | Dataset collection, preprocessing, exploratory data analysis and feature preparation |
-| Member 2 | ML model development, training, evaluation, comparison, threshold tuning and prediction interface |
-| Member 3 | Django backend, authentication, database, URL scanning and ML model integration |
+| Data engineering | Dataset cleaning, preprocessing, EDA, and feature preparation |
+| Machine learning | Model training, evaluation, comparison, and prediction |
+| Django application | Backend, authentication, scanning, history, and application integration |
 
-### Team Collaboration
+## 📦 Release Status
 
-The project is developed collaboratively using Git and GitHub. Individual contributions are maintained through separate development branches and integrated through pull requests.
+**Current release: [PhishGuard v1.0.0 — First Official Release](https://github.com/Aleem-Ghafoor/PhishGuard/releases/tag/v1.0.0)**
 
-## 📌 Project Status
+This release represents the implementation captured on the `main` branch at the `v1.0.0` tag.
 
-**Currently in Development**
+Further code-quality improvements, comprehensive application testing, and additional hardening are planned for a subsequent release. The first release should not be interpreted as a claim that the application has completed production-readiness or comprehensive security testing.
 
-### Completed
+## 📄 Project Documentation
 
-- Dataset preparation and feature processing.
-- ML model development and experimentation.
-- Decision Tree, KNN, Random Forest and XGBoost evaluation.
-- Model comparison and threshold analysis.
-- Final Random Forest model selection.
-- Model serialization and Git LFS configuration.
-- ML prediction interface.
-- Experimentation notebook and exported evaluation results.
-
-### In Progress
-
-- Django backend development.
-- URL scanning functionality.
-- ML model integration with the backend.
-- Database and scan history functionality.
-- Frontend and application integration.
-- End-to-end testing and final demonstration.
-
-## 📄 Deliverables
-
-- Source code and GitHub repository.
-- Dataset source and documentation.
-- Data preprocessing and analysis.
-- ML experimentation notebook.
-- Model comparison and evaluation results.
-- Trained Random Forest model.
-- URL prediction interface.
-- Django-based web application.
-- Project report and demonstration.
+- [Dataset documentation](DATASET_DOCUMENTATION.md)
+- [GitHub repository](https://github.com/Aleem-Ghafoor/PhishGuard)
+- [v1.0.0 release notes](https://github.com/Aleem-Ghafoor/PhishGuard/releases/tag/v1.0.0)
 
 ## 📜 License
 
