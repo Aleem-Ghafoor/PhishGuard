@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PhishGuard.views.home, name='home'),
     path('accounts/', include('accounts.urls')),  # Include the accounts app URLs
-    path('dashboard/', PhishGuard.views.dashboard, name='dashboard'),  # Dashboard URL
+    path('dashboard/', PhishGuard.views.dashboard, name='dashboard'),
+    path('scanner/', include('scanner.urls')),  # Include the scanner app URLs
 ]
