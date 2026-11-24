@@ -1,0 +1,354 @@
+/* ============================================================
+   PhishGuard – Scan URL Page CSS (Standalone)
+   ============================================================ */
+
+/* Scanner page ki specific background color jo image mein hai */
+body {
+  background-color: #08070d; /* Dark purplish-black */
+}
+
+/* Page Body Wrapper (Header ke neeche ka area) */
+.page-body-container {
+  padding: 40px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---------- Top Section (Heading & Description) ---------- */
+.scan-header-area {
+  margin-bottom: 40px;
+}
+
+.sub-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #a78bfa; /* Purple */
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.sub-heading .line {
+  width: 20px;
+  height: 2px;
+  background-color: #a78bfa;
+}
+
+.scan-header-area h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.header-description {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+/* ---------- Main Analyzer Card ---------- */
+.analyzer-card {
+  background: #110f1a; /* Card background */
+  border: 1px solid #2a2438; /* Subtle purple border */
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.analyzer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.analyzer-icon {
+  width: 48px;
+  height: 48px;
+  background: #1e1b2e;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a78bfa;
+}
+
+.analyzer-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.analyzer-titles h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.analyzer-titles p {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* ---------- Scan Form & Input Field ---------- */
+.scan-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.input-group {
+  display: flex;
+  background: #08070d; /* Darker background for input */
+  border: 1px solid #2a2438;
+  border-radius: 10px;
+  padding: 6px;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+
+.input-group:focus-within {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.input-icon {
+  padding: 0 14px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  padding: 10px 0;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: #475569;
+}
+
+.btn-scan {
+  background: #8b5cf6;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-scan:hover {
+  background: #7c3aed;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.btn-scan svg {
+  width: 16px;
+  height: 16px;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 14px;
+}
+
+/* ---------- Demonstration Mode Buttons ---------- */
+.demo-section {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #2a2438;
+}
+
+.btn-demo {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #2a2438;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-demo:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+}
+
+.btn-demo.active {
+  background: #1e1b2e;
+  color: #ffffff;
+  border-color: #3b3254;
+}
+
+/* ---------- Result Card (Phishing / Legitimate) ---------- */
+.result-card {
+  background: #1a1012; /* Subtle dark red */
+  border: 1px solid #4a1c24;
+  border-radius: 16px;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  transition: all 0.3s ease;
+}
+
+.result-card.legitimate {
+  background: #0f1a14; /* Subtle dark green */
+  border-color: #1c4a2e;
+}
+
+.result-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.result-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.result-card.legitimate .result-icon-wrap {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.result-text h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fca5a5;
+  margin-bottom: 6px;
+}
+
+.result-card.legitimate .result-text h3 {
+  color: #6ee7b7;
+}
+
+.result-text p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.result-score-area {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.score-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f87171;
+}
+
+.result-card.legitimate .score-value {
+  color: #34d399;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+@media (max-width: 992px) {
+  .page-body-container {
+    padding: 24px;
+  }
+  
+  .scan-header-area h1 {
+    font-size: 2.2rem;
+  }
+  
+  .result-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .result-score-area {
+    text-align: left;
+    margin-top: 16px;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 8px 0;
+  }
+  
+  .btn-scan {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .demo-section {
+    flex-direction: column;
+  }
+  
+  .btn-demo {
+    width: 100%;
+    text-align: center;
+  }
+}
