@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan URL | PhishGuard</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Dashboard CSS for Sidebar & Header Layout -->
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+  
+  <!-- Scanner Page CSS -->
+  <link rel="stylesheet" href="{% static 'scanner/css/scanner.css' %}">
+</head>
+<body>
+
+  <!-- 1. Existing Dashboard Sidebar -->
+  {% include 'dashboard/sidebar.html' %}
+
+  <!-- 2. Main Content Wrapper -->
+  <main class="main-content">
+    
+    <!-- 3. Existing Dashboard Header -->
+    {% include 'dashboard/header.html' %}
+
+    <!-- 4. Page Body Container (Jahan scanner wala content aayega) -->
+    <div class="page-body-container">
+      
+      <!-- Page Header / Heading -->
+      <div class="scan-header-area">
+        <div class="sub-heading">
+          <span class="line"></span> URL ANALYSIS
+        </div>
+        <h1>Detect Phishing URLs Instantly</h1>
+        <p class="header-description">
+          Explore how URL characteristics can be presented alongside a model score. This is a demonstration interface with sample results only—not a security verdict.
+        </p>
+      </div>
+
+      <!-- Main Analyzer Card -->
+      <div class="analyzer-card">
+        <div class="analyzer-header">
+          <div class="analyzer-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <div class="analyzer-titles">
+            <h2>Analyze a URL</h2>
+            <p>Enter a URL to view an illustrative result</p>
+          </div>
+        </div>
+
+        <!-- Scanner Form -->
+        <form id="scanForm" class="scan-form" method="POST" data-api-url="{% url 'scan_api' %}">
+          {% csrf_token %}
+          <label for="urlInput">URL to scan</label>
+          <div class="input-group">
+            <div class="input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <input type="url" id="urlInput" name="url" placeholder="https://example.com/login" required>
+            <button type="submit" class="btn-scan" id="scanBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              Scan URL
+            </button>
+          </div>
+          <p class="input-hint" id="inputHint">
+            Enter a URL and click Scan URL to check it using the PhishGuard ML model.
+          </p>
+        </form>
+
+        <!-- Demonstration Mode -->
+        <div class="demo-section">
+        <!---  <button type="button" class="btn-demo active" id="demoPhishBtn">Sample phishing result</button>
+          <button type="button" class="btn-demo" id="demoSafeBtn">Sample legitimate result</button> --->
+        </div>
+      </div>
+
+      <!-- Result Card (Initially Hidden) -->
+      <div class="result-card" id="resultCard" style="display: none;">
+        <div class="result-content">
+          <div class="result-icon-wrap" id="resultIcon">
+            <!-- Icon injected by JS -->
+          </div>
+          <div class="result-text">
+            <h3 id="resultTitle">Sample result: Potential phishing</h3>
+            <p id="resultMessage">Consider avoiding this link and verifying the destination through a trusted channel. This sample result is not a definitive assessment.</p>
+          </div>
+        </div>
+        <div class="result-score-area">
+          <span class="score-label" id="scoreLabel">MODEL SCORE</span>
+          <span class="score-value" id="resultScore">0.92</span>
+        </div>
+      </div>
+
+    </div> <!-- End page-body-container -->
+
+  </main>
+
+  <script src="{% static 'scanner/js/scanner.js' %}"></script>
+</body>
+</html>

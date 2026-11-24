@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan History | PhishGuard</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Existing Dashboard CSS for layout -->
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+  
+  <!-- History Page CSS -->
+  <link rel="stylesheet" href="{% static 'scanner/css/history.css' %}">
+</head>
+<body>
+
+  <!-- 1. Include Sidebar -->
+  {% include 'dashboard/sidebar.html' %}
+
+  <main class="main-content">
+    
+    <!-- 2. Include Header -->
+    {% include 'dashboard/header.html' %}
+
+    <!-- Page Body Wrapper -->
+    <div class="history-page-container">
+      
+      <!-- Page Title & Icon -->
+      <div class="page-title-area">
+        <div class="title-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="title-text">
+          <h1>Scan History</h1>
+          <p>Your past URL scans and their results.</p>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="card-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="card-info">
+            <span class="card-label">Total Scans</span>
+            <span class="card-value" id="stat-total">{{ total_scans }}</span>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="card-info">
+            <span class="card-label">Legitimate</span>
+            <span class="card-value" id="stat-legit">{{ legitimate_scans }}</span>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="card-icon red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="card-info">
+            <span class="card-label">Phishing</span>
+            <span class="card-value" id="stat-phish">{{ phishing_scans }}</span>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="card-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="card-info">
+            <span class="card-label">Phishing Rate</span>
+            <span class="card-value" id="stat-rate">{{ phishing_rate }}%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters Section -->
+      <div class="filter-section">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Search by URL...">
+        </div>
+        
+        <div class="dropdown-filters">
+          <div class="select-wrapper">
+            <select id="resultFilter">
+              <option value="">All Results</option>
+              <option value="Legitimate">Legitimate</option>
+              <option value="Phishing">Phishing</option>
+            </select>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          
+          <div class="select-wrapper">
+            <select id="dateFilter">
+              <option value="">All Time</option>
+              <option value="today">Today</option>
+              <option value="last_7_days">Last 7 Days</option>
+              <option value="last_30_days">Last 30 Days</option>
+            </select>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+
+          <button id="clearFiltersBtn" class="btn-clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Wrapper (Loading state applied here) -->
+      <div class="table-wrapper" id="tableWrapper">
+        <div class="loading-overlay" id="loadingState" style="display: none;">
+          <div class="spinner"></div>
+          <span>Loading...</span>
+        </div>
+
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>URL</th>
+              <th>Result</th>
+              <th>Score</th>
+              <th>Scanned At</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Server-side rendered initial state -->
+            {% for scan in scans %}
+            <tr>
+              <td class="serial-num">{{ forloop.counter|add:page_obj.start_index|add:"-1" }}</td>
+              <td class="url-cell">
+                <a href="{{ scan.url }}" target="_blank" class="url-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  {{ scan.url|truncatechars:50 }}
+                </a>
+              </td>
+              <td>
+                <span class="badge {% if scan.prediction == 'Phishing' %}phishing{% else %}legitimate{% endif %}">
+                  {% if scan.prediction == 'Phishing' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                  {% endif %}
+                  {{ scan.prediction }}
+                </span>
+              </td>
+              <td class="score-cell">{{ scan.phishing_probability|floatformat:2 }}</td>
+              <td class="date-cell">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                {{ scan.scanned_at|date:"M d, Y h:i A" }}
+              </td>
+              <td class="action-cell">
+                <button class="action-btn">...</button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row">
+              <td colspan="6">
+                <div class="empty-state">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+                  <p>No scan history found.</p>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-footer">
+        <div class="page-info" id="pageInfo">
+          Showing {{ page_obj.start_index|default:0 }}–{{ page_obj.end_index|default:0 }} of {{ total_scans }} scans
+        </div>
+        
+        <div class="page-controls" id="paginationControls">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-btn prev">&lsaquo;</a>
+          {% else %}
+            <span class="page-btn prev disabled">&lsaquo;</span>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <span class="page-btn active">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}" class="page-btn">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-btn next">&rsaquo;</a>
+          {% else %}
+            <span class="page-btn next disabled">&rsaquo;</span>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script
+    src="{% static 'scanner/js/history.js' %}"
+    data-api-url="{% url 'scan_history_api' %}"
+    defer>
+</script>
+</body>
+</html>

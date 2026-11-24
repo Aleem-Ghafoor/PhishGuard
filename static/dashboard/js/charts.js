@@ -1,28 +1,74 @@
-/* static/dashboard/js/charts.js */
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof DASHBOARD_DATA === 'undefined') return;
-  const ctx = document.getElementById('urlScanChart');
-  if (!ctx) return;
-  const data = DASHBOARD_DATA.scan_overview;
-  new Chart(ctx, {
-    type: 'bubble',
-    data: {
-      datasets: [
-        { label: 'Safe', data: data.labels.map((day, i) => ({ x: i, y: data.datasets.safe[i], r: 12 })), backgroundColor: '#10b981' },
-        { label: 'Phishing', data: data.labels.map((day, i) => ({ x: i, y: data.datasets.phishing[i], r: 10 })), backgroundColor: '#8b5cf6' },
-        { label: 'Suspicious', data: data.labels.map((day, i) => ({ x: i, y: data.datasets.suspicious[i], r: 6 })), backgroundColor: '#f8fafc' }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'category', labels: data.labels, grid: { display: false }, ticks: { color: '#94a3b8' } },
-        y: { display: false, beginAtZero: true }
-      },
-      plugins: {
-        legend: { position: 'bottom', labels: { color: '#94a3b8', usePointStyle: true, boxWidth: 8 } },
-        tooltip: { backgroundColor: '#0a1424', titleColor: '#f8fafc', bodyColor: '#cbd5e1', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1 }
-      }
+
+let urlScanChartInstance = null;
+
+function renderScanOverviewChart(data) {
+    const canvas = document.getElementById('urlScanChart');
+
+    if (!canvas) return;
+
+    // Destroy previous chart before creating a new one
+    if (urlScanChartInstance) {
+        urlScanChartInstance.destroy();
     }
-  });
-});
+
+    urlScanChartInstance = new Chart(canvas, {
+        type: 'line',
+
+        data: {
+            labels: data.labels,
+
+            datasets: [
+                {
+                    label: 'Legitimate',
+                    data: data.safe,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: 'Phishing',
+                    data: data.phishing,
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        color: '#94a3b8'
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#94a3b8'
+                    }
+                },
+
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        color: '#94a3b8'
+                    }
+                }
+            }
+        }
+    });
+}
