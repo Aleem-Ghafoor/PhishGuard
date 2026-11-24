@@ -1,0 +1,39 @@
+{
+  "experiment": "PhishGuard group-based model comparison",
+  "split_metadata": {
+    "method": "StratifiedGroupKFold",
+    "n_splits": 5,
+    "selected_fold": 1,
+    "random_state": 42,
+    "group_definition": "Identical values across the six shared V1 baseline features",
+    "total_rows": 507194,
+    "unique_groups": 100638,
+    "train_rows": 405754,
+    "test_rows": 101440,
+    "train_groups": 80483,
+    "test_groups": 20155,
+    "group_overlap_count": 0,
+    "train_class_counts": {
+      "Good": 314316,
+      "Bad": 91438
+    },
+    "test_class_counts": {
+      "Good": 78580,
+      "Bad": 22860
+    },
+    "exact_full_feature_vector_overlap_rows_by_version": {
+      "V1": 0,
+      "V2": 0,
+      "V3": 0
+    },
+    "note": "Same row indices are used for V1, V2 and V3. A zero overlap confirms no identical full feature vector from the held-out test rows appears in training for that version."
+  },
+  "models": [
+    "Decision Tree",
+    "Random Forest",
+    "XGBoost"
+  ],
+  "threshold_selection": "Group-isolated validation split only; target recall 0.75",
+  "test_evaluation": "Held-out group-isolated test set",
+  "note": "Both the internal validation split and final test split are group-isolated using the six shared baseline features. Threshold is selected using a model fitted on the sub-training split, then that model is refitted on all training rows before test evaluation. Probability calibration can shift slightly after refitting; interpret the tuned-threshold metrics with this limitation in mind."
+}
