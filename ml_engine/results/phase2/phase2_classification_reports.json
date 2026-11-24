@@ -1,0 +1,281 @@
+[
+  {
+    "dataset_version": "V1",
+    "model": "Decision Tree",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9134799671442914,
+        "recall": 0.7642499904554652,
+        "f1-score": 0.8322281580643149,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.48104882763257417,
+        "recall": 0.7511811023622047,
+        "f1-score": 0.5865054562221426,
+        "support": 22860.0
+      },
+      "accuracy": 0.7613048235885607,
+      "macro avg": {
+        "precision": 0.6972643973884327,
+        "recall": 0.757715546408835,
+        "f1-score": 0.7093668071432288,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.8160285347638673,
+        "recall": 0.7613048235885607,
+        "f1-score": 0.7768527998282119,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V1",
+    "model": "Random Forest",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.914891720880492,
+        "recall": 0.7838735540029779,
+        "f1-score": 0.8443302148658374,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.5021546038167267,
+        "recall": 0.7493438320209974,
+        "f1-score": 0.6013374756463588,
+        "support": 22860.0
+      },
+      "accuracy": 0.7760920356076065,
+      "macro avg": {
+        "precision": 0.7085231623486093,
+        "recall": 0.7666086930119876,
+        "f1-score": 0.7228338452560981,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.8218784765062603,
+        "recall": 0.7760920356076065,
+        "f1-score": 0.7895700731199873,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V1",
+    "model": "XGBoost",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.912826309438343,
+        "recall": 0.7605085328141107,
+        "f1-score": 0.8297349457812088,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.4768431001890359,
+        "recall": 0.7503499562554681,
+        "f1-score": 0.5831180310035355,
+        "support": 22860.0
+      },
+      "accuracy": 0.7582192253472531,
+      "macro avg": {
+        "precision": 0.6948347048136895,
+        "recall": 0.7554292445347894,
+        "f1-score": 0.7064264883923721,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.81457439288318,
+        "recall": 0.7582192253472531,
+        "f1-score": 0.7741580703011902,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V2",
+    "model": "Decision Tree",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.92685980197519,
+        "recall": 0.9327810229196095,
+        "f1-score": 0.9298109856653558,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.76375346632078,
+        "recall": 0.7469816272965879,
+        "f1-score": 0.7552744482285816,
+        "support": 22860.0
+      },
+      "accuracy": 0.8909098078648252,
+      "macro avg": {
+        "precision": 0.845306634147985,
+        "recall": 0.8398813251080988,
+        "f1-score": 0.8425427169469687,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.8901026293585454,
+        "recall": 0.8909098078648252,
+        "f1-score": 0.8904779357949445,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V2",
+    "model": "Random Forest",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9296950673745387,
+        "recall": 0.9649524682166991,
+        "f1-score": 0.946995716194782,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.8614688128772636,
+        "recall": 0.7491688538932634,
+        "f1-score": 0.80140383715489,
+        "support": 22860.0
+      },
+      "accuracy": 0.9163240962548921,
+      "macro avg": {
+        "precision": 0.8955819401259011,
+        "recall": 0.8570606610549812,
+        "f1-score": 0.874199776674836,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.9143197957550658,
+        "recall": 0.9163240962548921,
+        "f1-score": 0.914185550924502,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V2",
+    "model": "XGBoost",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9242827151854444,
+        "recall": 0.9244709146209547,
+        "f1-score": 0.9243768053240358,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.7401943617580109,
+        "recall": 0.739676290463692,
+        "f1-score": 0.7399352354279712,
+        "support": 22860.0
+      },
+      "accuracy": 0.8828261319610801,
+      "macro avg": {
+        "precision": 0.8322385384717277,
+        "recall": 0.8320736025423233,
+        "f1-score": 0.8321560203760034,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.8827970956569481,
+        "recall": 0.8828261319610801,
+        "f1-score": 0.882811585952551,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V3",
+    "model": "Decision Tree",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9303856182930499,
+        "recall": 0.9444635335140432,
+        "f1-score": 0.9373717215987672,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.7986248904065341,
+        "recall": 0.7570866141732283,
+        "f1-score": 0.7773012059015069,
+        "support": 22860.0
+      },
+      "accuracy": 0.9022368122714144,
+      "macro avg": {
+        "precision": 0.864505254349792,
+        "recall": 0.8507750738436357,
+        "f1-score": 0.8573364637501371,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.9006924012908539,
+        "recall": 0.9022368122714144,
+        "f1-score": 0.9012986925976989,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V3",
+    "model": "Random Forest",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9315078469213123,
+        "recall": 0.9766731569503302,
+        "f1-score": 0.9535559862829879,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.9037795275590551,
+        "recall": 0.7531496062992126,
+        "f1-score": 0.8216177523264138,
+        "support": 22860.0
+      },
+      "accuracy": 0.9263005352970751,
+      "macro avg": {
+        "precision": 0.9176436872401836,
+        "recall": 0.8649113816247713,
+        "f1-score": 0.8875868693047009,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.9252590729722278,
+        "recall": 0.9263005352970751,
+        "f1-score": 0.9238227670256285,
+        "support": 101439.0
+      }
+    }
+  },
+  {
+    "dataset_version": "V3",
+    "model": "XGBoost",
+    "classification_report": {
+      "Good (Legitimate)": {
+        "precision": 0.9251538020872251,
+        "recall": 0.9453925349011822,
+        "f1-score": 0.9351636800795584,
+        "support": 78579.0
+      },
+      "Bad (Phishing)": {
+        "precision": 0.7970294688046923,
+        "recall": 0.7370953630796151,
+        "f1-score": 0.7658916842799027,
+        "support": 22860.0
+      },
+      "accuracy": 0.8984512859945386,
+      "macro avg": {
+        "precision": 0.8610916354459587,
+        "recall": 0.8412439489903987,
+        "f1-score": 0.8505276821797305,
+        "support": 101439.0
+      },
+      "weighted avg": {
+        "precision": 0.8962800724680579,
+        "recall": 0.8984512859945386,
+        "f1-score": 0.8970170321041236,
+        "support": 101439.0
+      }
+    }
+  }
+]
