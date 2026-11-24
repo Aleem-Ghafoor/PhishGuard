@@ -58,17 +58,35 @@ def calculate_entropy(url):
     return entropy
 
 
+
 def parse_url(url):
-    """Parse URLs with or without an HTTP/HTTPS scheme."""
+    """Parse and validate URLs with or without an HTTP/HTTPS scheme."""
+
+    if not isinstance(url, str) or not url.strip():
+        raise ValueError("Please provide a valid, non-empty URL.")
+
+    url = url.strip()
 
     try:
         if url.lower().startswith(("http://", "https://")):
-            return urlsplit(url)
+            parsed = urlsplit(url)
+        else:
+            parsed = urlsplit("//" + url)
 
-        return urlsplit("//" + url)
+        # Validate that a hostname exists.
+        hostname = parsed.hostname
 
-    except ValueError:
-        return urlsplit("")
+        if not hostname:
+            raise ValueError("URL must contain a valid hostname.")
+
+        # Accessing .port validates its format and range.
+        parsed.port
+
+        return parsed
+
+    except ValueError as error:
+        raise ValueError(f"Invalid URL: {url!r}. {error}") from error
+
 
 
 def extract_url_features(url):
@@ -127,10 +145,7 @@ def extract_url_features(url):
     )
 
     # Port detection
-    try:
-        has_port = int(parsed.port is not None)
-    except ValueError:
-        has_port = 0
+    has_port = int(parsed.port is not None)
 
     # Double slash count, excluding the initial scheme
     double_slash_count = url.count("//")

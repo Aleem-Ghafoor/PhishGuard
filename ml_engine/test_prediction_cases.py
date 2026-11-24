@@ -60,15 +60,59 @@ print("Passed:", passed)
 print("Failed:", failed)
 
 
+
 print("\nINVALID INPUT TESTING")
 
-invalid_inputs = ["", None, 123]
+invalid_inputs = [
+    "",
+    None,
+    123,
+    "   ",
+    "http://",
+    "http:///login",
+    "https:///example.com",
+    "http://example.com:abc",
+    "http://example.com:99999",
+    "http://[::1",
+    "://malformed"
+]
 
 for value in invalid_inputs:
     try:
         predict_url(value)
-        print(repr(value), "FAILED: Invalid input accepted")
-    except ValueError:
+
+    except ValueError as error:
+        passed += 1
         print(repr(value), "PASSED: ValueError raised")
+        print("Reason:", error)
+
     except Exception as error:
-        print(repr(value), "FAILED:", type(error).__name__)
+        failed += 1
+        print(
+            repr(value),
+            "FAILED: Unexpected exception:",
+            type(error).__name__,
+            str(error)
+        )
+
+    else:
+        failed += 1
+        print(repr(value), "FAILED: Invalid input accepted")
+
+
+print("\n" + "=" * 60)
+print("FINAL TEST SUMMARY")
+print("=" * 60)
+
+total_tests = len(test_urls) + len(invalid_inputs)
+
+print("Total Tests:", total_tests)
+print("Passed:", passed)
+print("Failed:", failed)
+
+if failed > 0:
+    print("\nTEST RESULT: FAILED")
+    raise SystemExit(1)
+
+print("\nTEST RESULT: ALL TESTS PASSED")
+raise SystemExit(0)
