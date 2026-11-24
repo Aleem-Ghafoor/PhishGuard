@@ -211,7 +211,7 @@ body {
 }
 .avatar { width: 34px; height: 34px; background: var(--purple); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1rem; }
 .user-info { display: flex; align-items: center; gap: 8px; }
-.user-name { font-size: 0.9rem; font-weight: 500; }
+.user-name { font-size: 0.9rem; font-weight: 500 }
 .chevron { width: 16px; height: 16px; color: var(--text-muted); }
 
 /* Cards */
