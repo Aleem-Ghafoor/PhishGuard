@@ -172,13 +172,36 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 5. Apply database migrations
+### 5. Configure your Django secret key
+
+The `SECRET_KEY` is intentionally not stored in GitHub. Each developer must generate their own local secret key before running the application.
+
+1. Generate a new Django secret key:
+
+   ```bash
+   python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+   ```
+
+2. In the project root (the same folder as `manage.py`), create a file named `.env`.
+3. Copy the generated key into `.env` in this format:
+
+   ```env
+   SECRET_KEY=paste-your-generated-key-here
+   ```
+
+   Replace the placeholder with the key printed by the command. Do not add quotes unless needed, and do not share or commit this file.
+
+4. Make sure `.env` is excluded by `.gitignore`. Never push your real secret key to GitHub.
+
+Generate a separate key for each developer's local environment. You do not need the repository owner's secret key to run the project.
+
+### 6. Apply database migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 6. Start the development server
+### 7. Start the development server
 
 ```bash
 python manage.py runserver
