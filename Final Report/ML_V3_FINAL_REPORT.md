@@ -73,7 +73,28 @@ The V3 feature set contained **21 features**. The following feature names are co
 | `Has_Encoded_Characters` | Indicates the presence of encoded characters. |
 | `Longest_Host_Label_Length` | Measures the length of the longest host label. |
 
-The V3 feature count was 21, but the available records confirm only the nine names above. The remaining twelve names and definitions should be copied from the committed V3 feature-extraction code before publishing a complete feature dictionary; they are intentionally not guessed here.
+Total 21 Features:
+    "URL_Length",
+    "Dot_Count",
+    "Hyphen_Count",
+    "Digit_Count",
+    "Special_Char_Count",
+    "Has_HTTPS",
+    "Domain_Length",
+    "Subdomain_Count",
+    "Has_IP_Address",
+    "URL_Depth",
+    "Query_Parameter_Count",
+    "At_Symbol_Count",
+    "URL_Entropy",
+    "Digit_Ratio",
+    "Suspicious_Word_Count",
+    "Domain_Hyphen_Count",
+    "Has_Port",
+    "Double_Slash_Count",
+    "Has_Punycode",
+    "Has_Encoded_Characters",
+    "Longest_Host_Label_Length"
 
 ## 5. Model Selection
 
@@ -171,7 +192,7 @@ At 0.51, accuracy and precision increased slightly, while recall and F1-score de
 
 The recorded trained model artifact is:
 
-`ml_engine/model/random_forest.pkl`
+`ml_engine/model/random_forest_v3_gruop.pkl`
 
 The ML implementation is organised around the following responsibilities. Confirm exact filenames against the current repository tree before changing paths in this report.
 
