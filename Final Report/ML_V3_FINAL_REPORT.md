@@ -192,7 +192,7 @@ At 0.51, accuracy and precision increased slightly, while recall and F1-score de
 
 The recorded trained model artifact is:
 
-`ml_engine/model/random_forest_v3_gruop.pkl`
+`ml_engine/model/random_forest_v3_group.pkl`
 
 The ML implementation is organised around the following responsibilities. Confirm exact filenames against the current repository tree before changing paths in this report.
 
