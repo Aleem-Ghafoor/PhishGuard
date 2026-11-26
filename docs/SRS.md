@@ -284,3 +284,12 @@ Potential future improvements include:
 ---
 
 **End of Document**
+
+
+## 10.1 Scanner protections added in PR #27
+
+- The public POST scan endpoint is limited to 10 requests per client IP per 60-second window; excess requests receive HTTP 429.
+- URL validation checks HTTP/HTTPS scheme, hostname, malformed URL syntax, and port syntax/range before model inference.
+- Unexpected scan exceptions are logged server-side; clients receive a generic error response.
+- The development cache uses Django local-memory cache. A shared cache is required for consistent limits across multiple workers or application instances.
+- Automated scanner tests have been added, but PR #27 states they have not yet been executed locally. Test coverage must not be represented as a passing test run until executed.

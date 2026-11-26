@@ -73,3 +73,8 @@ Suggested fields:
 - A failed scan may have no Prediction record.
 - Store a score only when a prediction is successfully generated.
 - Define whether the score is a probability, confidence estimate, or another model output before displaying it to users.
+
+
+## 5. Cache data used by scanner throttling
+
+PR #27 adds a cache-backed per-IP request counter for the public scan endpoint. This is transient cache state, not a relational database entity, and is therefore not shown in the ER diagram. The development configuration uses local-memory cache; multi-worker deployments require a shared cache backend for consistent enforcement.

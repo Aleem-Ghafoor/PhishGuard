@@ -51,3 +51,8 @@ flowchart TD
 - Do not fetch or execute user-submitted URLs in the MVP.
 - Enforce scan ownership in database queries and views.
 - Do not treat model confidence as a guarantee of safety.
+
+
+## 8. Scanner request protection (PR #27)
+
+The public scan API is decorated with a per-client-IP rate limiter. The configured policy allows 10 requests in a 60-second window and returns HTTP 429 when exceeded. The limiter stores counters through Django's cache framework. The current local-memory cache is intended for development/single-process use; production deployments with multiple workers or instances need a shared cache such as Redis. URL validation occurs before inference. Unexpected scan exceptions are logged through the scanner view logger and a generic JSON error is returned to the client.

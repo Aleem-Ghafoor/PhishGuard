@@ -55,3 +55,8 @@ The inference module must:
 
 ## Security Note
 The MVP analyzes the URL string only. It must not automatically visit, execute, or fetch the submitted URL.
+
+
+## 8. Scanner-to-model boundary and request controls
+
+The Django scanner validates the submitted URL and applies API rate limiting before calling the ML inference service. The rate limiter is an application-layer control; it does not alter the 21-feature model schema, model artifact, threshold, or recorded V3 evaluation metrics. The model remains a URL-feature classifier and does not itself implement request throttling or website fetching.

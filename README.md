@@ -238,3 +238,8 @@ Further code-quality improvements, comprehensive application testing, and additi
 ## 📜 License
 
 This project is developed for educational and academic purposes.
+
+
+## Scanner hardening (PR #27)
+
+The scanner endpoint is public and protected by a per-client-IP limit of 10 POST requests per 60-second window. Invalid URL syntax and port values are rejected before inference. Unexpected inference failures are logged server-side while the API returns a generic error to the client. The development configuration uses Django's local-memory cache; multi-worker or multi-instance deployments must use a shared cache backend such as Redis. See [Scanner hardening notes](docs/scanner-hardening.md).
