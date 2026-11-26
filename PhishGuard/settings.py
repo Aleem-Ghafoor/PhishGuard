@@ -31,6 +31,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Local development cache for scanner rate limiting.
+# Configure a shared cache backend (such as Redis) in multi-worker production deployments.
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'phishguard-scan-rate-limit',
+    }
+}
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 # Application definition
 
