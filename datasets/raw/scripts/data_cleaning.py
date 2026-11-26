@@ -6,8 +6,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 # Input and output paths
-INPUT_PATH = BASE_DIR / "datasets" / "raw" / "phishing_site_urls.csv"
-OUTPUT_PATH = BASE_DIR / "datasets" / "processed" / "cleaned_phishing_urls.csv"
+INPUT_PATH = BASE_DIR / "raw" / "phishing_site_urls.csv"
+OUTPUT_PATH = BASE_DIR / "processed" / "cleaned_phishing_urls.csv"
 
 print("========== DATA CLEANING ==========")
 
