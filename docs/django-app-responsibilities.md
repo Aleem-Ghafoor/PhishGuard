@@ -73,3 +73,13 @@ flowchart TD
 - Add tests for validation, feature extraction, prediction, and scan workflows.
 - Do not commit virtual environments, secrets, local databases, or generated model files unless the repository's model-artifact policy explicitly requires them.
 - Keep model artifacts and feature definitions versioned together so inference remains compatible with training.
+
+
+## 7. Scanner hardening modules (PR #27)
+
+- `scanner/rate_limit.py`: per-client-IP scan throttling (10 requests per 60 seconds).
+- `scanner/validation.py`: validates URL input, HTTP/HTTPS scheme, hostname, and port syntax/range.
+- `scanner/views.py`: applies rate limiting to the public scan API and logs unexpected scan failures while returning a generic error response.
+- `scanner/tests.py`: contains validation, scan API, rate-limit, and error-logging tests. PR #27 notes that these tests still need to be executed locally.
+
+The rate limiter uses Django's configured cache. The local-memory backend is not a shared counter across multiple application workers or instances.

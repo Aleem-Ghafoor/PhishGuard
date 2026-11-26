@@ -54,3 +54,8 @@ flowchart LR
 - Guest scans do not require an account.
 - Scan history is available only to authenticated users and must be scoped to the current user.
 - The diagram is a high-level MVP view; detailed use-case specifications are in `SRS.md`.
+
+
+## 6. Scanner abuse-control behaviour (PR #27)
+
+The guest and registered-user scan use cases remain available without mandatory login. The public scan endpoint applies a per-client-IP limit of 10 POST requests per 60 seconds. Requests over the limit receive HTTP 429. Invalid URL input is rejected before model inference. Unexpected internal failures are logged server-side and returned as a generic client error. These controls do not change the actor permissions for scan history.
