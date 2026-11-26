@@ -6,7 +6,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 # Load cleaned dataset
-DATA_PATH = BASE_DIR / "datasets" / "processed" / "cleaned_phishing_urls.csv"
+DATA_PATH = BASE_DIR / "processed" / "cleaned_phishing_urls.csv"
 
 df = pd.read_csv(DATA_PATH)
 
